@@ -43,8 +43,8 @@ model UsersInfos {
 }
 
 model Comments {
-  commentId INT @id @default(autoincrement()) @map("commentId")
-  content String @map("content")
+  commentId INT      @id @default(autoincrement()) @map("commentId")
+  content   String   @map("content")
   createdAt DateTime @default(now()) @map("createdAt")
   updatedAt DateTime @updatedAt @map("updatedAt")
 
