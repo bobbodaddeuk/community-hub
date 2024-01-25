@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Users {
-  userId    INT      @id @default(autoincrement()) @map("userId")
+  userId    Int      @id @default(autoincrement()) @map("userId")
   email     String   @unique @map("email")
   password  String   @map("password")
   createdAt DateTime @default(now()) @map("createdAt")
@@ -25,44 +25,44 @@ model Users {
 }
 
 model Posts {
-  postId    INT      @id @default(autoincrement()) @map("postId")
-  usersId   INT      @map("usersId")
+  postId    Int      @id @default(autoincrement()) @map("postId")
+  userId   Int      @map("userId")
   title     String   @map("title")
   content   String   @map("content") @db.Text
   createdAt DateTime @default(now()) @map("createdAt")
-  updatedAt DateTime @updatedAt @map("updatedAt)
+  updatedAt DateTime @updatedAt @map("updatedAt")
 
-  user Users @relation(field: [usersId], references: [usersId], onDelete: Cascade)
+  user Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
   comments Comments[]
 
   @@map("Posts")
 }
 
 model UsersInfos {
-  usersInfoId  INT      @id @default(autoincrement()) @map("usersInfoId)
-  usersId      INT      @unique @map("usersId")
+  usersInfoId  Int      @id @default(autoincrement()) @map("usersInfoId")
+  userId      Int      @unique @map("userId")
   name         String   @map("name")
-  age          INT?     @map("age")
+  age          Int?     @map("age")
   gender       String   @map("gender")
   profileImage String?  @map("profileImage")
   createdAt    DateTime @default(now()) @map("createdAt")
   updatedAt    DateTime @updatedAt @map("updatedAt")
 
-  user Users @relation(field: [userId], references: [userId], onDelete: Cascade)
+  user Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@map("UsersInfos")
 }
 
 model Comments {
-  commentId INT      @id @default(autoincrement()) @map("commentId")
-  postId    INT      @map("postId")
-  userId    INT      @map("userId")
+  commentId Int      @id @default(autoincrement()) @map("commentId")
+  postId    Int      @map("postId")
+  userId    Int      @map("userId")
   content   String   @map("content")
   createdAt DateTime @default(now()) @map("createdAt")
   updatedAt DateTime @updatedAt @map("updatedAt")
 
-  post Posts @relation(field: [postId], references: [postId] onDelete: Cascade)
-  user Users @relation(field: [userId], references: [userId] onDelete: Cascade)
+  post Posts @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  user Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@map("Comments")
 }
