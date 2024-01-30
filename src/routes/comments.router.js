@@ -34,4 +34,15 @@ router.post(
   }
 );
 
+router.get("/posts/:postId/comments", async (req, res, next) => {
+  const { postId } = req.params;
+
+  const comments = await prisma.comments.findMany({
+    where: { postId: +postId },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return res.status(200).json({ data: comments });
+});
+
 export default router;
